@@ -33,6 +33,35 @@ for (var num = 1; num <=100; num ++) {
   word = "";
 }
 
-// Chess Board
-var size = 8;
-var line = 0;
+// Chess Board (create a size x size "chess board") (V1)
+var size = 10;
+var board = "";
+for (var i = 0; i < size; i++) {
+  for (var j = 0; j < size; j ++) {
+    if ((i % 2 != 0) && (j % 2 != 0)) {
+      board += " ";
+    } else if ((i % 2 != 0) && (j % 2 == 0)) {
+      board += "#";
+    } else if ((i % 2 == 0) && (j % 2 != 0)) {
+      board += "#";
+    } else if ((i % 2 == 0) && (j % 2 == 0)) {
+      board += " ";
+    }
+  }
+  board += "\n"
+}
+console.log(board);
+
+// Chess Board (V2)
+var size = 10;
+var board = "";
+for (var i = 0; i < size; i++) {
+  for (var j = 0; j < size; j ++) {
+    if ((i + j) % 2 != 0) 
+      board += "#";
+    else
+      board += " ";
+  }
+  board += "\n"
+}
+console.log(board);

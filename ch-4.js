@@ -17,7 +17,6 @@ function range(start, end, step) {
        res.push(i);
       }
   }
-  
   return res;
 }
 
@@ -112,12 +111,10 @@ function deepEqual (value1, value2) {
   if (value1 === value2) {
     return true;
   }
-  
   if ((typeof value1 == 'object' && value1 != null) && (typeof value2 == 'object' && value2 != null)) {
     if (Object.keys(value1).length !== Object.keys(value2).length) {
       return false;
-   }
-   
+    }
    for (var v in value1) {
      if (!(v in value2) || !(deepEqual(value1[v], value2[v]))) {
        return false;

@@ -65,9 +65,73 @@ console.log(arrayValue);
 
 // A List
 function arrayToList(arr) {
+  var list = null;
   
+  for (var i = arr.length - 1; i >= 0; i-- ) {
+     list = {
+       value: arr[i],
+       rest: list
+     };
+  }
+  return list;
 }
 
-function prepend(el, lst) {
-  
+function listToArray(list) {
+  var arr = [];
+  for (var item = list; item != null; item = item.rest) {
+    arr.push(item.value);
+  }
+  return arr;
 }
+
+function prepend(element, list) {
+  return {value: element, rest: list}
+}
+
+function nth(list, num) {
+  if (list == null) {
+    return undefined;
+  } else if (num == 0) {
+    return list.value;
+  } else {
+    return nth(list.rest, num - 1);
+  }
+}
+
+console.log(arrayToList([10, 20]));
+// → {value: 10, rest: {value: 20, rest: null}}
+console.log(listToArray(arrayToList([10, 20, 30])));
+// → [10, 20, 30]
+console.log(prepend(10, prepend(20, null)));
+// → {value: 10, rest: {value: 20, rest: null}}
+console.log(nth(arrayToList([10, 20, 30]), 1));
+// → 20
+
+// Deep Comparison
+function deepEqual (value1, value2) {
+  if (value1 === value2) {
+    return true;
+  }
+  
+  if ((typeof value1 == 'object' && value1 != null) && (typeof value2 == 'object' && value2 != null)) {
+    if (Object.keys(value1).length !== Object.keys(value2).length) {
+      return false;
+   }
+   
+   for (var v in value1) {
+     if (!(v in value2) || !(deepEqual(value1[v], value2[v]))) {
+       return false;
+     }
+   }
+   return true;
+  }
+  return false;
+}
+
+var obj = {here: {is: "an"}, object: 2};
+console.log(deepEqual(obj, obj));
+// → true
+console.log(deepEqual(obj, {here: 1, object: 2}));
+// → false
+console.log(deepEqual(obj, {here: {is: "an"}, object: 2}));
+// → true
